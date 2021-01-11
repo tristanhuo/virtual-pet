@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Meegan Eggman</title>
+        <style>
+            body {
+                font-family: helvetica;
+                font-weight: 1000;
+                background-color: rgb(52, 0, 88);
+                font-size: 125%;
+            }
+            p {
+                font-family: helvetica;
+                font-size: 12px;
+                color: rgb(198, 130, 238);
+            }
+            .header {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                padding: 20px;
+                background-color:rgb(52, 0, 88);
+            }
+            .pet-name {
+                font-size: 60px;
+                color:salmon;
+            }
+            .description {
+                color:rgb(156, 98, 107);
+                padding-top: 5px;
+                font-size: 30px;
+            }
+            .main {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .image-area {
+                background-color:teal;
+                display: grid;
+                justify-items: center;
+
+            }
+            .pet-image {
+                height: 500px;
+                max-width: 100%;
+            }
+            .interactive-area {
+                background-color:#363b00;
+                display: grid;
+                align-items: center;
+                justify-items: center;
+            }
+            .activity-row {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                width: 90%;
+                align-items:center;
+                padding: 0 1rem;
+            }
+            .activity-icon {
+                width: 60px;
+                height: 60px;
+                align-items: left;
+                -webkit-filter: invert(1);
+                filter: invert(1);
+            }
+            .activity-stat {
+                align-items: center;
+                color:white;
+            }
+            .activity-button {
+                display: grid;
+                background-color:yellowgreen;
+                padding-left: 5px;
+                padding-right: 5px;
+                height: 100%;
+                text-align: center;
+                border-radius: 5px;
+                box-shadow: 0 0 15px 0 yellowgreen;
+                color:white;
+                cursor: pointer;
+                align-items: center;
+                justify-items: center;
+            }
+
+            .pepper-button {
+                background-color: orange;
+                box-shadow: 0 0 15px 0 orange;
+                padding-top: 5px;
+                padding-bottom: 5px;
+                padding-right: 80px;
+                padding-left: 80px;
+                height: 50%;
+                text-align: center;
+            }
+
+            .hidden {
+                display: none;
+            }
+
+            .endgame {
+                display: grid;
+                grid-template-columns: 100px;
+                grid-template-rows: 100px;
+            }
+
+            .message {
+                color:white;
+                background-color:tomato;
+                text-align: center;
+                padding: 10px;
+            }
+
+            .restart-button {
+                grid-template-rows: 50px;
+            }
+
+        </style>
+    </head>
+    <body>
+        <div class="header">
+            <div class="intro">
+                <div class="pet-name">MEGGAN EGGMAN</div>
+                <div class="description">She's a sizzle and a half!</div>
+            </div>
+            <div class="instructions">
+                <p>Thank you so much for egg-stting for me! Here is what you'll need to know to keep my baby alive:</p>
+                <p>1: Keep those vital numbers high! But remember, when you give Meggan one thing, she'll need to be replenished with the others too! Too much of one will kill her!</p>
+                <p>2: If Meggan is good, treat her to a Pepper Party! But be careful, Pepper Parties can increase and decrease vitals by a substantial amount. It's high risk high reward, sunny!</p>
+                <p>3: I'll be back when her vitals are all at 300! Good luck, you're gonna need it!</p>
+            </div>
+        </div>
+        <div class="main">
+            <div class="image-area">
+                <img class="pet-image" id="pet-image" src='neutral.gif')>
+            </div>
+            <div class="interactive-area">
+                <div class="activity-row" id="oil-row">
+                    <img class="activity-icon" src='oil.png'/>
+                    <div class="activity-stat" id="oil-stat">50</div>
+                    <div class="activity-button" onclick="oilPet()">Drizzle oil</div>
+                </div>
+                <div class="activity-row" id="salt-row">
+                    <img class="activity-icon" img src='salt.png'/>
+                    <div class="activity-stat" id="salt-stat">50</div>
+                    <div class="activity-button" onclick="saltPet()">Sprinkle salt</div>
+                </div>
+                <div class="activity-row" id="roll-row">
+                    <img class="activity-icon" src='exercise.png'/>
+                    <div class="activity-stat" id="roll-stat">50</div>
+                    <div class="activity-button" onclick="rollPet()">Roll around</div>
+                </div>
+                <div class="pepper-button activity-button" id="pepper-row" onclick="pepperPet()">Pepper Party!</div>
+            </div>
+        </div>
+        <div class="end-game hidden" id="end-game">
+            <div class="message" id="message"></div>
+            <div class="restart-button activity-button" onclick="restart()">Restart</div>
+        </div>
+
+    </body>
+    <script>
+        var oil = 50
+        var salt = 50
+        var roll = 50
+        var hasNotPassedOut = true
+
+        var RandomNumber = () => {
+            return Math.floor(Math.random() * 80) + 1
+        }
+
+        var oilPet = () => {
+            console.log('Hydrating Pet!')
+            oil = oil + 15
+            salt = salt - 5
+            roll = roll - 2
+            updateHTML()
+        }
+        var saltPet = () => {
+            console.log('Salting Pet!')
+            salt = salt + 15
+            oil = oil - 5
+            roll = roll - 5
+            updateHTML()
+        }
+        var rollPet = () => {
+            console.log('Exercising Pet!')
+            roll = roll + 30
+            salt = salt - 10
+            oil = oil - 15
+            updateHTML()
+        }
+        var pepperPet = () => {
+            console.log('PEPPER PARTY AYYYYY')
+            roll = roll + 35 - Number(RandomNumber())
+            salt = salt + 35 - Number(RandomNumber())
+            oil = oil + 35 - Number(RandomNumber())
+            updateHTML()
+        }
+
+        var updateHTML = () => {
+            document.getElementById("oil-stat").innerHTML = oil
+            document.getElementById("salt-stat").innerHTML = salt
+            document.getElementById("roll-stat").innerHTML = roll
+            var lowestStat = Math.min(oil,salt,roll)
+            var imgSrc
+            
+            if (lowestStat >= 300) {
+                    if (hasNotPassedOut) {
+                        toggleInteractivity()
+                        hasNotPassedOut = false
+                        winGame()
+                    }
+                    }
+            else if (lowestStat <= 0) {
+                    imgSrc = "passed-out.png"
+                    if (hasNotPassedOut) {
+                        toggleInteractivity()
+                        hasNotPassedOut = false
+                        loseGame()
+                    }
+                }
+                else if (lowestStat < 75) {
+                    imgSrc = "tired.gif"
+                }
+                else if (lowestStat < 125) {
+                    imgSrc = "neutral.gif"
+                }
+                else if (lowestStat < 200) {
+                    imgSrc = "upbeat.gif"
+                }
+                else {
+                   imgSrc = "exuberant.gif"
+                }
+            
+            document.getElementById("pet-image").src = imgSrc
+        }
+
+        var agePet = () => {
+            oil = oil - 8
+            salt = salt - 4
+            roll = roll - 2
+            updateHTML()
+        }
+
+        setInterval(agePet,2000)
+
+        var toggleInteractivity = () => {
+            document.getElementById("oil-row").classList.toggle("hidden")
+            document.getElementById("salt-row").classList.toggle("hidden")
+            document.getElementById("roll-row").classList.toggle("hidden")
+            document.getElementById("pepper-row").classList.toggle("hidden")
+            document.getElementById("end-game").classList.toggle("hidden")
+
+        }
+
+        var loseGame = () => {
+            document.getElementById("message").innerHTML = "WHAT HAVE YOU DONE?!? I hate you. You are a murderer. I'm calling the FDA."
+        }
+
+        var winGame = () => {
+            document.getElementById("message").innerHTML = "MY BABY IS ALIVE AND HEALTHY!! Thank ya sunny, here's a tenner, go buy yourself a bag of chips."
+        }
+
+        var restart = () => {
+            oil = 50
+            salt = 50
+            roll = 50
+            hasNotPassedOut = true
+            toggleInteractivity()
+            updateHTML()
+        }
+    </script>
+</html>
